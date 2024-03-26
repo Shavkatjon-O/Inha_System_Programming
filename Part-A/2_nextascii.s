@@ -1,46 +1,36 @@
-# Convert each character in a string to its next ASCII character
-# Assemble with GNU assembler: $as -o nextascii.o nextascii.s
-# Link with GNU linker: $ld nextascii.o -o nextascii
-# Execute: $./nextascii
-
 .global _start
-
-.section .data
-    message: .asciz "SYSTEM PROGRAMMING Lab Assignment 3\n"
-    nxtasciim: .space 100
-
-.section .text
+.data
+message: .asciz "SYSTEM PROGRAMMING Lab Assignment 3\n"
+nxtasciim: .space 100
+.text
 _start:
-    # write syscall (1) - write to stdout (1)
-    movq $1, %rax         # syscall number 1 (write)
-    movq $1, %rdi         # file descriptor (stdout)
-    movq $message, %rsi   # address of the original string
-    movq $36, %rdx        # number of bytes to write
-    syscall
+    movq $1, %rax      # sys_write system call
+    movq $1, %rdi      # file descriptor (stdout)
+    movq $message, %rsi    # pointer to the message string
+    movq $36, %rdx     # message length
+    syscall            # invoke system call to print the message
 
 up:
-    movq $35, %rcx        # loop counter
-    movq $nxtasciim, %rdi # destination buffer
-    movq $message, %rsi   # source string
-    movb (%rsi), %al      # load current character
-    addb $1, %al          # increment ASCII value by 1
-    movb %al, (%rdi)      # store in buffer
-    incq %rsi             # move to next character in source
-    incq %rdi             # move to next location in buffer
-    decq %rcx             # decrement loop counter
-    jnz up                # loop until all characters processed
+    movq $35, %rcx     # loop counter
+    movq $nxtasciim, %rdi  # destination buffer
+    movq $message, %rsi    # source string
+    movb (%rsi), %al   # load a byte from source
+    addb $1, %al       # increment byte value (next ASCII character)
+    movb %al, (%rdi)   # store the modified byte in destination
+    incq %rsi          # move to the next byte in source
+    incq %rdi          # move to the next byte in destination
+    decq %rcx          # decrement loop counter
+    jnz up             # repeat until loop counter is not zero
 
-    movb (%rsi), %al      # load null terminator
-    movb %al, (%rdi)      # copy null terminator to buffer
+    movb (%rsi), %al   # copy the null terminator
+    movb %al, (%rdi)   # store the null terminator in destination buffer
 
-    # write syscall (1) - write modified string to stdout
-    movq $1, %rax         # syscall number 1 (write)
-    movq $1, %rdi         # file descriptor (stdout)
-    movq $nxtasciim, %rsi # address of the modified string
-    movq $36, %rdx        # number of bytes to write
-    syscall
+    movq $1, %rax      # sys_write system call
+    movq $1, %rdi      # file descriptor (stdout)
+    movq $nxtasciim, %rsi    # pointer to the modified string
+    movq $36, %rdx     # modified string length
+    syscall            # invoke system call to print the modified string
 
-    # exit syscall (60) - exit with return code 0
-    movq $60, %rax        # syscall number 60 (exit)
-    xorq %rdi, %rdi       # return code 0
-    syscall
+    movq $60, %rax     # sys_exit system call
+    xorq %rdi, %rdi    # return code 0
+    syscall            # invoke system call to exit the program
