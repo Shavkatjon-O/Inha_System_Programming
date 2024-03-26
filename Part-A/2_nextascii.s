@@ -1,36 +1,41 @@
+# The following program takes each character in the string stored at message
+# in memory and converts it to its next ascii character, stores it in buffer
+# memory at nxtasciim :
+# To create object file using GNU assembler as
+#   $as -gstabs nextascii.s -o nextascii.o
+# To create an executable file after linking
+#   $ld nextascii.o -o nextascii
+# To execute nextascii
+#   $./nextascii
+
 .global _start
 .data
 message: .asciz "SYSTEM PROGRAMMING Lab Assignment 3\n"
-nxtasciim: .space 100
-.text
-_start:
-    movq $1, %rax      # sys_write system call
-    movq $1, %rdi      # file descriptor (stdout)
-    movq $message, %rsi    # pointer to the message string
-    movq $36, %rdx     # message length
-    syscall            # invoke system call to print the message
-
+nxtasciim: . space 100
+.text _start:
+    movq $1, %rax
+    movq $1, %rdi
+    movq $message, %rsi
+    movq $36, %rdx
+    syscall
 up:
-    movq $35, %rcx     # loop counter
-    movq $nxtasciim, %rdi  # destination buffer
-    movq $message, %rsi    # source string
-    movb (%rsi), %al   # load a byte from source
-    addb $1, %al       # increment byte value (next ASCII character)
-    movb %al, (%rdi)   # store the modified byte in destination
-    incq %rsi          # move to the next byte in source
-    incq %rdi          # move to the next byte in destination
-    decq %rcx          # decrement loop counter
-    jnz up             # repeat until loop counter is not zero
-
-    movb (%rsi), %al   # copy the null terminator
-    movb %al, (%rdi)   # store the null terminator in destination buffer
-
-    movq $1, %rax      # sys_write system call
-    movq $1, %rdi      # file descriptor (stdout)
-    movq $nxtasciim, %rsi    # pointer to the modified string
-    movq $36, %rdx     # modified string length
-    syscall            # invoke system call to print the modified string
-
-    movq $60, %rax     # sys_exit system call
-    xorq %rdi, %rdi    # return code 0
-    syscall            # invoke system call to exit the program
+    movq $35, %rcx
+    movq $nxtasciim, %rdi
+    movq $message, %rsi
+    movb (%rsi), %al
+    addb $1, %al
+    movb %al, (%rdi)
+    incq %rsi
+    incq %rdi
+    decq %rcx
+    jnz up
+    movb (%rsi), %al
+    movb %al, (%rdi)
+    movq $1, %rax
+    movq $1, %rdi
+    movq $nxtasciim, %rsi
+    movq $36, %rdx
+    syscall
+    movq $60, %rax
+    xorq %rdi, %rdi
+    syscall
