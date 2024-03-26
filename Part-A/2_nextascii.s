@@ -12,7 +12,9 @@
 .data
 message: .asciz "SYSTEM PROGRAMMING Lab Assignment 3\n"
 nxtasciim: . space 100
-.text _start:
+
+.text
+_start:
     movq $1, %rax
     movq $1, %rdi
     movq $message, %rsi
