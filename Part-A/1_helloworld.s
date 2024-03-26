@@ -6,7 +6,7 @@
 .global _start
 
 .data
-message: .ascii "Hello World\n"
+    message: .ascii "Hello World\n"
 
 .text
 _start:

@@ -1,30 +1,31 @@
-# Echo Line program
-# Assemble with GNU assembler: $as -o echoline.o echoline.s
-# Link with GNU linker: $ld echoline.o -o echoline
-# Execute: $./echoline
+# The following program just reads one line from stdin, using sys_read, then
+# echoes it to stdout:
+# To create object file using GNU assembler as - $as -gstabs echoline.s -o echoline.o
+# To create an executable file after linking - $ld echoline.o -o echoline
+# To execute rwstring - $./echoline
 
 .global _start
 
-.section .data
+.data
     buf: .skip 1024
 
-.section .text
+.text
 _start:
-    # Read from stdin
-    movq $0, %rdi        # stdin file descriptor
-    movq $buf, %rsi      # buffer to read into
-    movq $80, %rdx       # buffer length
-    movq $0, %rax        # sys_read syscall number
+    movq $0, %rdi               # stdin file descriptor
+    movq $buf, %rsi             # buffer
+    movq $80, %rdx              # buffer length
+    movq $0, %rax               # sys_read
     syscall
 
-    # Write to stdout
-    movq $1, %rdi        # stdout file descriptor
-    movq $buf, %rsi      # message to print
-    movq %rax, %rdx      # message length from sys_read
-    movq $1, %rax        # sys_write syscall number
+    # The sys_read function returns the number of bytes that were read in the rax
+    # register, so we use that as the message length in the call to sys_write.
+
+    movq $1, %rdi               # stdout file descriptor
+    movq $buf, %rsi             # message to print
+    movq %rax, %rdx             # message length
+    movq $1, %rax               # sys_write
     syscall
 
-    # Exit
-    movq $0, %rdi        # return code = 0
-    movq $60, %rax       # sys_exit syscall number
-    syscall
+    movq $0, %rdi               # exit with return code =0
+    movq $60, %rax
+    syscall                     # sys_exit

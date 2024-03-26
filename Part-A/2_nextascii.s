@@ -8,8 +8,8 @@
 .global _start
 
 .data
-message: .asciz "SYSTEM PROGRAMMING Lab Assignment 3\n"
-nxtasciim: . space 100
+    message: .asciz "SYSTEM PROGRAMMING Lab Assignment 3\n"
+    nxtasciim: . space 100
 
 .text
 _start:
