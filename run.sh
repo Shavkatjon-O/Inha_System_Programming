@@ -5,12 +5,12 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-file_path="&1"
+file_path="$1"
 file_name=$(basename -- "$file_path")
 file_name_no_ext="${file_name%.*}"
 
 echo "Compiling..."
-as -gstabs -o "$file_without_extension.o" "$file_path"
+as -gstabs -o "$file_name_no_ext.o" "$file_path"
 
 if [ $? -eq 0 ]; then
     echo "Compilation successful!"
@@ -19,7 +19,7 @@ else
 fi
 
 echo "Linking..."
-ld -o "$file_without_extension" "$file_without_extension.o"
+ld -o "$file_name_no_ext" "$file_name_no_ext.o"
 
 if [ $? -eq 0 ]; then
     echo "Linking successful!"
@@ -30,7 +30,7 @@ fi
 echo "Running..."
 
 echo -e "-------------------------------------------------"
-./"$file_without_extension" # run the program
+./"$file_name_no_ext" # run the program
 echo -e "-------------------------------------------------"
 
 if [ $? -eq 0 ]; then
@@ -40,6 +40,6 @@ else
 fi
 
 echo "Cleaning up..."
-rm "$file_without_extension.o"
-rm "$file_without_extension"
+rm "$file_name_no_ext.o"
+rm "$file_name_no_ext"
 echo "DONE!"
