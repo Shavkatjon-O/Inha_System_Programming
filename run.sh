@@ -1,53 +1,45 @@
 #!/bin/bash
 
-# check if file path is given
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <file_path>"
     exit 1
 fi
 
-# get file path from command line argument
-file_path="$1" 
-file=$(basename -- "$file_path")
-file_without_extension="${file%.*}"
+file_path="&1"
+file_name=$(basename -- "$file_path")
+file_name_no_ext="${file_name%.*}"
 
-# compile file
-echo "[INFO]    Compiling..."
+echo "Compiling..."
 as -gstabs -o "$file_without_extension.o" "$file_path"
 
 if [ $? -eq 0 ]; then
-    echo "[INFO]    Compilation successful!"
+    echo "Compilation successful!"
 else
-    echo "[ERROR]   Compilation failed."
+    echo "Compilation failed!"
 fi
 
-# link file
-echo "[INFO]    Linking..."
+echo "Linking..."
 ld -o "$file_without_extension" "$file_without_extension.o"
 
 if [ $? -eq 0 ]; then
-    echo "[INFO]    Linking successful!"
+    echo "Linking successful!"
 else
-    echo "[ERROR]   Linking failed."
+    echo "Linking failed."
 fi
 
-# run file
-echo "[INFO]    Running..."
+echo "Running..."
 
-echo -e "\n-------------------------------------------------\n"
-
-./"$file_without_extension"
-
-echo -e "\n-------------------------------------------------\n"
+echo -e "-------------------------------------------------"
+./"$file_without_extension" # run the program
+echo -e "-------------------------------------------------"
 
 if [ $? -eq 0 ]; then
-    echo "[INFO]    Running successful!"
+    echo "Running successful!"
 else
-    echo "[ERROR]   Running failed."
+    echo "Running failed."
 fi
 
-# clean up
-echo "[INFO]    Cleaning up..."
+echo "Cleaning up..."
 rm "$file_without_extension.o"
 rm "$file_without_extension"
-echo "[INFO]    DONE!"
+echo "DONE!"
