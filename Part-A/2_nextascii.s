@@ -1,14 +1,12 @@
 # The following program takes each character in the string stored at message
 # in memory and converts it to its next ascii character, stores it in buffer
 # memory at nxtasciim :
-# To create object file using GNU assembler as
-#   $as -gstabs nextascii.s -o nextascii.o
-# To create an executable file after linking
-#   $ld nextascii.o -o nextascii
-# To execute nextascii
-#   $./nextascii
+# To create object file using GNU assembler as - $as -gstabs nextascii.s -o nextascii.o
+# To create an executable file after linking - $ld nextascii.o -o nextascii
+# To execute nextascii - $./nextascii
 
 .global _start
+
 .data
 message: .asciz "SYSTEM PROGRAMMING Lab Assignment 3\n"
 nxtasciim: . space 100
@@ -38,6 +36,8 @@ up:
     movq $nxtasciim, %rsi
     movq $36, %rdx
     syscall
+
     movq $60, %rax
     xorq %rdi, %rdi
     syscall
+    
