@@ -1,8 +1,4 @@
 ### System_Programming_Lab_3_IUT
 
 
-- use run.sh to run assembly files
-
-```bash
-./run.sh ./<file_path>
-```
+To run .s assembly files use ```run.sh``` script in such format - ```./run.sh ./path/to/file```
