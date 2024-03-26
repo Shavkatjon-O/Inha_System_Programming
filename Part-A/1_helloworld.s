@@ -1,23 +1,25 @@
-# Hello World program
-# Assemble with GNU assembler: $as -o helloworld.o helloworld.s
-# Link with GNU linker: $ld helloworld.o -o helloworld
-# Execute: $./helloworld
+# program helloworld.s
+# To create object file using GNU assembler as
+#       $as -gstabs helloworld.s -o helloworld.o
+# To create an executable file after linking
+#       $ld helloworld.o -o helloworld
+# To execute helloworld
+#       $./helloworld
 
 .global _start
 
-.section .data
-    message: .ascii "Hello World\n"
+.data
+message:
+    .ascii "Hello World\n"
 
-.section .text
+.text
 _start:
-    # write syscall (1) - write to stdout (1)
-    movq $1, %rax         # syscall number 1 (write)
-    movq $1, %rdi         # file descriptor (stdout)
-    movq $message, %rsi   # address of the string
-    movq $13, %rdx        # number of bytes to write
+    movq $1, %rax         # system call 1 is write
+    movq $1, %rdi         # file handle 1 is stdout
+    movq $message, %rsi   # address of string in memory to output
+    movq $13, %rdx        # number of bytes
     syscall
 
-    # exit syscall (60) - exit with return code 0
-    movq $60, %rax        # syscall number 60 (exit)
+    movq $60, %rax        # system call 60 is exit
     xorq %rdi, %rdi       # return code 0
     syscall
