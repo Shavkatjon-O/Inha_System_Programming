@@ -9,6 +9,7 @@
 # To execute fib
 # $./fib
 # -----------------------------------------------------------------------------
+
 .global _start
 .data
 format: .asciz "%20ld\n"
@@ -22,6 +23,7 @@ _start:
     # We need to call printf, but we are using rax, rbx, and rcx. Printf may
     # destroy rax and rcx so we will save these before the call and restore
     # them afterwards.
+    
 print_loop:
     pushq %rax             # save current number
     pushq %rcx             # save loop counter
