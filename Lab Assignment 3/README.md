@@ -53,3 +53,11 @@ as -gstabs fib.s -o fib.o
 ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 fib.o -o fib -lc
 ./fib
 ```
+
+8. fibio.s
+
+```
+as -gstabs fibio.s -o fibio.o
+ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 fibio.o -o fibio -lc
+./fibio
+```
