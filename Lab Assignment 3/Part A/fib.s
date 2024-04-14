@@ -4,7 +4,7 @@
 # A 64-bit Linux application that writes the first 90 Fibonacci numbers. It needs 
 # to be linked with a C library at runtime. To create object file using GNU assembler as
 # $ as -gstabs fib.s -o fib.o. To create an executable file after linking
-$ ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 fib.o -o fib -lc. To execute fib $./fib
+# $ ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 fib.o -o fib -lc. To execute fib $./fib
 # -----------------------------------------------------------------------------
 
 .global _start
@@ -31,6 +31,7 @@ print:
     pushq %rcx          # caller-save register
     movq $format, %rdi  # set 1st parameter (format)
     movq %rax, %rsi     # set 2nd parameter (current_number)
+
     xorq %rax, %rax            # Reset rax to 0 because printf is varargs
 
     call printf                # Call printf(format, current_number)
