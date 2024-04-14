@@ -202,7 +202,7 @@ _start:
     popq %rax
 
     # Display message about computation x % y to obtain Remainder
-    Movq $1, %rax
+    movq $1, %rax
     movq $1, %rdi
     movq $message9, %rsi
     movq $20, %rdx
