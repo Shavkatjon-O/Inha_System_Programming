@@ -1,4 +1,4 @@
-- arithxy.s
+6. arithxy.s
 
 ```
 as -gstabs arithxy.s -o arithxy.o
