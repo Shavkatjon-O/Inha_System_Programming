@@ -115,7 +115,7 @@ _start:
     movq $1, %rax
     movq $1, %rdi
     movq $message5, %rsi
-    movq $20, %rdx
+    movq $13, %rdx
     syscall
 
     # Perform addition x + y and display the result using printf
@@ -159,7 +159,7 @@ _start:
     movq $1, %rax
     movq $1, %rdi
     movq $message7, %rsi
-    movq $20, %rdx
+    movq $17, %rdx
     syscall
 
     # Perform multiplication x * y and display the product using printf
@@ -181,7 +181,7 @@ _start:
     movq $1, %rax
     movq $1, %rdi
     movq $message8, %rsi
-    movq $20, %rdx
+    movq $18, %rdx
     syscall
 
     # Perform division x / y and display the quotient in %rax using printf
@@ -205,7 +205,7 @@ _start:
     movq $1, %rax
     movq $1, %rdi
     movq $message9, %rsi
-    movq $20, %rdx
+    movq $18, %rdx
     syscall
 
     # Perform division x % y and display the remainder in %rdx using printf
