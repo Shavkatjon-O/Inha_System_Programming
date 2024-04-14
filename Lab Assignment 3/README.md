@@ -45,3 +45,11 @@ as -gstabs arithxy.s -o arithxy.o
 ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 arithxy.o -o arithxy -lc
 ./arithxy
 ```
+
+7. fib.s
+
+```
+as -gstabs fib.s -o fib.o
+ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 fib.o -o fib -lc
+./fib
+```
