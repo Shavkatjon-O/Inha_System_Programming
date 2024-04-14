@@ -72,6 +72,7 @@ _start:
     pushq %rcx
     movq $format, %rdi
     movq %rax, %rsi
+    xorq %rax, %rax
     call printf
     popq %rcx
     popq %rax
@@ -105,6 +106,7 @@ _start:
     pushq %rcx
     movq $format, %rdi
     movq %rax, %rsi
+    xorq %rax, %rax
     call printf
     popq %rcx
     popq %rax
@@ -126,6 +128,7 @@ _start:
     pushq %rcx
     movq $format, %rdi
     movq %rax, %rsi
+    xorq %rax, %rax
     call printf
     popq %rcx
     popq %rax
@@ -147,6 +150,7 @@ _start:
     pushq %rcx
     movq $format, %rdi
     movq %rax, %rsi
+    xorq %rax, %rax
     call printf
     popq %rcx
     popq %rax
@@ -168,6 +172,7 @@ _start:
     pushq %rcx
     movq $format, %rdi
     movq %rax, %rsi
+    xorq %rax, %rax
     call printf
     popq %rcx
     popq %rax
@@ -191,12 +196,13 @@ _start:
     pushq %rcx
     movq $format, %rdi
     movq %rax, %rsi
+    xorq %rax, %rax
     call printf
     popq %rcx
     popq %rax
 
     # Display message about computation x % y to obtain Remainder
-    movq $1, %rax
+    Movq $1, %rax
     movq $1, %rdi
     movq $message9, %rsi
     movq $20, %rdx
@@ -215,11 +221,12 @@ _start:
     pushq %rcx
     movq $format, %rdi
     movq %rax, %rsi
+    xorq %rax, %rax
     call printf
     popq %rcx
     popq %rax
-
-    #System exit
+    
+    # System exit
     movq $60, %rax
     xorq %rdi, %rdi
     syscall
